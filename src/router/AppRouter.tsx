@@ -10,8 +10,8 @@ const AppRouter = () => {
     return (
        <BrowserRouter>
          <Routes>
-           <Route path="cadastroServico" element={<CadastroServico />}></Route>
-           <Route path="listagemServico" element={<ListagemServico  />}></Route>
+           <Route path="cadastroServico" element={<CadastroServico />}/>
+           <Route path="listagemServico" element={<ListagemServico  />}/>
 
            <Route path="cadastroProfissional" element={<CadastroProfissional />}/>
            <Route path="listagemProfissional" element={<ListagemProfissional  />}/>
