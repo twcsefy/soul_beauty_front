@@ -2,10 +2,10 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 
 import styles from "../../App.module.css";
 import axios from 'axios';
-import FooterProfissional from './FooterProfissional';
-import HeaderProfissional from './HeaderProfissionais';
+import FooterCliente from './FooterCliente';
+import HeaderCliente from './HeaderCliente';
 
-const CadastroProfissional = () => {
+const CadastroCliente = () => {
 
     const [nome, setNome] = useState<string>("");
     const [celular, setCelular] = useState<string>("");
@@ -21,9 +21,30 @@ const CadastroProfissional = () => {
     const [cep, setCep] = useState<string>("");
     const [complemento, setComplemento] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [salario, setSalario] = useState<string>("");
+    const [erro, setErro] = useState<string>("");
 
-    const CadastroProfissional = (e: FormEvent) => {
+
+    const findCep = (e: FormEvent) => {
+        e.preventDefault();
+
+        fetch('https://viacep.com.br/ws/'+cep+'/json',
+        {
+            method: 'GET'
+        }).then(Response => Response.json())
+        .then(
+            data => {
+                setCidade(data.localidade);
+                setCep(data.cep);
+                setEstado(data.uf);
+                setErro("");
+            }
+        ).catch(error => {
+            setErro("Pesquisa Inválida");
+        });
+
+    }
+
+    const CadastroCliente = (e: FormEvent) => {
         e.preventDefault();
 
         const dados = {
@@ -40,11 +61,10 @@ const CadastroProfissional = () => {
         bairro: bairro,
         cep: cep,
         complemento: complemento,
-        password: password,
-        salario: salario 
+        password: password
         }
 
-        axios.post('http://localhost:8000/api/profissional/store',
+        axios.post('http://localhost:8000/api/cliente/store',
         dados,
         {
             headers: {
@@ -53,7 +73,7 @@ const CadastroProfissional = () => {
             }
         }).then(function(response){
             console.log(response.data)
-          window.location.href = "/listagemProfissional";
+          window.location.href = "/listagemCliente";
         }).catch(function(error){
             console.log(error);
         });
@@ -115,21 +135,17 @@ const CadastroProfissional = () => {
         if(e.target.name === "password"){
             setPassword(e.target.value);
         }
-
-        if(e.target.name === "salario"){
-            setSalario(e.target.value);
-        }
 }
 
 return(
     <div>
-        <HeaderProfissional />
+        <HeaderCliente />
         <main className={styles.main}>
             <div className='container'>
                 <div className='card'>
                 <div className='card-body'>
-                <h5 className='card-title'>Cadastrar Profissionais</h5>
-                <form onSubmit={CadastroProfissional} className='row g-3'>
+                <h5 className='card-title'>Cadastrar Clientes</h5>
+                <form onSubmit={CadastroCliente} className='row g-3'>
 
                 <div className='col-5'>
                         <label htmlFor="nome" className='form-label'>Nome</label>
@@ -262,19 +278,9 @@ return(
                         </div>
 
                 <div className='col-3'>
-                        <label htmlFor="password" className='form-label'>Password</label>
+                        <label htmlFor="password" className='form-label'>Senha</label>
                         <input type="text" 
                         name="password"
-                        className="form-control"
-                        required
-                        onChange={handleState}
-                        />
-                        </div>
-
-                <div className='col-3'>
-                        <label htmlFor="salario" className='form-label'>Salário</label>
-                        <input type="text" 
-                        name="salario"
                         className="form-control"
                         required
                         onChange={handleState}
@@ -291,10 +297,10 @@ return(
                 </div>
             </div>
         </main>
-        <FooterProfissional />
+        <FooterCliente />
     </div>
 );
 
 }
 
-export default CadastroProfissional;
+export default CadastroCliente;

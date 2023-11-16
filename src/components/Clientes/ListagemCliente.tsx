@@ -3,12 +3,13 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../../App.module.css";
 
 import axios from 'axios';
-import { CadastroProfissionalInterface } from '../../interfaces/CadastroProfissionalInterface';
+import { CadastroClienteInterface } from '../../interfaces/CadatroClienteInterface';
 import { Link } from 'react-router-dom';
 
-const ListagemProfissional = () => {
 
-    const [profissionals, setProfissionals] = useState<CadastroProfissionalInterface[]>([]);
+const ListagemCliente = () => {
+
+    const [clientes, setClientes] = useState<CadastroClienteInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
@@ -24,7 +25,7 @@ const ListagemProfissional = () => {
         async function fetchData() {
             try {
 
-                const response = await axios.post('http://localhost:8000/api/profissioal/nome',
+                const response = await axios.post('http://localhost:8000/api/cliente/nome',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -33,9 +34,9 @@ const ListagemProfissional = () => {
                         }
                     }).then(function (response) {
                         if (response.data.status === true){
-                        setProfissionals(response.data.data);
+                        setClientes(response.data.data);
                         }else{
-                            setProfissionals([]);
+                            setClientes([]);
                         }
                     }).catch(function (error) {
                         console.log(error);
@@ -51,8 +52,8 @@ const ListagemProfissional = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:8000/api/profissional/retornarTodos/');
-                setProfissionals(response.data.data);
+                const response = await axios.get('http://localhost:8000/api/cliente/retornarTodos/');
+                setClientes(response.data.data);
 
             } catch (error) {
                 setError("Ocorreu um erro");
@@ -86,12 +87,12 @@ const ListagemProfissional = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='table table-hover'>Listagem de Profissionais</h5>
+                            <h5 className='table table-hover'>Listagem de Clientes</h5>
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
-                                   {/* <th>ID</th> */}
-                                   <th>Nome</th>
+                                        {/* <th>ID</th> */}
+                                        <th>Nome</th>
                                         {/* <th>Celular</th> */}
                                         <th>E-mail</th>
                                         <th>CPF</th>
@@ -103,31 +104,26 @@ const ListagemProfissional = () => {
                                         <th>Bairro</th>
                                         <th>CEP</th>
                                         {/* <th>Complemento</th> */}
-                                        <th>Salário</th>    
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {profissionals.map(profissionals => (
-                                        <tr key={profissionals.id}>
-                                            {/* <td>{profissionals.id}</td> */}
-                                            <td>{profissionals.nome}</td>
-                                            {/* <td>{profissionals.celular}</td> */}
-                                            <td>{profissionals.email}</td>
-                                            <td>{profissionals.cpf}</td>
-                                            {/* <td>{profissionals.dataNascimento}</td> */}
-                                            <td>{profissionals.cidade}</td>
-                                            <td>{profissionals.estado}</td>
-                                            <td>{profissionals.pais}</td>
-                                            <td>{profissionals.rua}</td>
-                                            <td>{profissionals.numero}</td>
-                                            <td>{profissionals.bairro}</td>
-                                            <td>{profissionals.cep}</td>
-                                            {/* <td>{profissionals.complemento}</td> */}
-                                            <td>{profissionals.salario}</td>
-
-
+                                    {clientes.map(clientes => (
+                                        <tr key={clientes.id}>
+                                            {/* <td>{clientes.id}</td> */}
+                                            <td>{clientes.nome}</td>
+                                            {/* <td>{clientes.celular}</td> */}
+                                            <td>{clientes.email}</td>
+                                            <td>{clientes.cpf}</td>
+                                            {/* <td>{clientes.dataNascimento}</td> */}
+                                            <td>{clientes.cidade}</td>
+                                            <td>{clientes.estado}</td>
+                                            <td>{clientes.pais}</td>
+                                            <td>{clientes.rua}</td>
+                                            <td>{clientes.bairro}</td>
+                                            <td>{clientes.cep}</td>
+                                            {/* <td>{clientes.complemento}</td> */}
                                             <td>
-                                            <Link to={"/profissional/editar/" + profissionals.id} className='btn btn-primary btn-sm'>Editar</Link>
+                                                <Link to={"/cliente/editar/" + clientes.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>
@@ -140,8 +136,6 @@ const ListagemProfissional = () => {
             </main>
         </div>
     );
-
-    
 }
 
-export default ListagemProfissional;
+export default ListagemCliente;
