@@ -4,6 +4,7 @@ import styles from "../../App.module.css";
 
 import axios from 'axios';
 import { CadastroServicoInterface } from '../../interfaces/CadastroServicoInterfaces';
+import { Link } from 'react-router-dom';
 
 
 const ListagemServico = () => {
@@ -51,7 +52,7 @@ const ListagemServico = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:8000/api/servico/retornarTodosr/');
+                const response = await axios.get('http://localhost:8000/api/servico/retornarTodos/');
                 setServicos(response.data.data);
 
             } catch (error) {
@@ -106,7 +107,7 @@ const ListagemServico = () => {
                                             <td>{servicos.duracao}</td>
                                             <td>{servicos.preco}</td>
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                                <Link to={"/servico/editar/" + servicos.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>

@@ -1,12 +1,12 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from "react";
-import FooterProfissional from "./FooterProfissional";
-import Header from "../profissionais/HeaderProfissionais";
+import FooterCliente from "./FooterCliente";
+import Header from "./HeaderCliente";
 import styles from "../../App.module.css"
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 
-const EditarProfissional = () => {
+const EditarCliente = () => {
 
     const [nome, setNome] = useState<string>("");
     const [celular, setCelular] = useState<string>("");
@@ -22,7 +22,6 @@ const EditarProfissional = () => {
     const [cep, setCep] = useState<string>("");
     const [complemento, setComplemento] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [salario, setSalario] = useState<string>("");
     const [id, setId] = useState<number>();
 
 
@@ -46,11 +45,10 @@ const EditarProfissional = () => {
             bairro: bairro,
             cep: cep,
             complemento: complemento,
-            password: password,
-            salario: salario 
+            password: password
         }
 
-        axios.put("http://127.0.0.1:8000/api/profissional/update",
+        axios.put("http://127.0.0.1:8000/api/cliente/update",
         dados,
         {
             headers: {
@@ -58,7 +56,7 @@ const EditarProfissional = () => {
                 "Content-Type": "application/json"
             }
         }).then(function(response){
-            window.location.href = "/listagemProfissional";
+            window.location.href = "/listagemCliente";
         }).catch(function(error){
             console.log('Ocorreu um erro ao atualizar');
         });
@@ -67,7 +65,7 @@ const EditarProfissional = () => {
     useEffect(() => {
         async function fetchData() {
             try{
-                const response = await axios.get("http://127.0.0.1:8000/api/profissional/find/" + parametro.id);
+                const response = await axios.get("http://127.0.0.1:8000/api/cliente/find/" + parametro.id);
                 setNome(response.data.data.nome);
                 setCelular(response.data.data.celular);
                 setEmail(response.data.data.email);
@@ -82,7 +80,6 @@ const EditarProfissional = () => {
                 setCep(response.data.data.cep);
                 setComplemento(response.data.data.complemento);
                 setPassword(response.data.data.password);
-                setSalario(response.data.data.salario);
                 setId(response.data.data.id);
 
             } catch(error){
@@ -149,12 +146,7 @@ const EditarProfissional = () => {
         if(e.target.name === "password"){
             setPassword(e.target.value);
         }
-
-        if(e.target.name === "salario"){
-            setSalario(e.target.value);
-        }
 }
-
 
     return (
         <div>
@@ -163,7 +155,7 @@ const EditarProfissional = () => {
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='card-title'>Cadastrar Profissionais</h5>
+                            <h5 className='card-title'>Cadastrar Clientes</h5>
                             <form onSubmit={atualizar} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
@@ -309,24 +301,13 @@ const EditarProfissional = () => {
                                 </div>
 
                                 <div className='col-6'>
-                                    <label htmlFor="password" className='form-label'>Senha</label>
+                                    <label htmlFor="senha" className='form-label'>Senha</label>
                                     <input type="text"
-                                        name='password'
+                                        name='senha'
                                         className='form-control'
                                         required
                                         onChange={handleState}
                                         value={password}
-                                    />
-                                </div>
-
-                                <div className='col-6'>
-                                    <label htmlFor="salario" className='form-label'>Salário</label>
-                                    <input type="text"
-                                        name='salario'
-                                        className='form-control'
-                                        required
-                                        onChange={handleState}
-                                        value={salario}
                                     />
                                 </div>
             
@@ -340,9 +321,9 @@ const EditarProfissional = () => {
                     </div>
                 </div>
             </main>
-            <FooterProfissional />
+            <FooterCliente />
         </div>
     );
 }
 
-export default EditarProfissional;
+export default EditarCliente;
