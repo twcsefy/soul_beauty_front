@@ -3,7 +3,7 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../../App.module.css";
 import axios from 'axios';
 import FooterProfissional from './FooterProfissional';
-import HeaderProfissional from './HeaderProfissionais';
+import HeaderProfissional from './HeaderProfissional';
 
 const CadastroProfissional = () => {
 
