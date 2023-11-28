@@ -7,7 +7,7 @@ import { CadastroProfissionalInterface } from '../../interfaces/CadastroProfissi
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const ListagemProfissional = () => {}
+const ListagemProfissional = () => {
 
     const [profissionals, setProfissionals] = useState<CadastroProfissionalInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
@@ -93,7 +93,7 @@ const ListagemProfissional = () => {}
             }
         });
 
-        
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -186,7 +186,6 @@ const ListagemProfissional = () => {}
         </div>
     );
 
-    
 }
 
 export default ListagemProfissional;

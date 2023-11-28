@@ -34,7 +34,6 @@ const CadastroCliente = () => {
         .then(
             data => {
                 setCidade(data.localidade);
-                setCep(data.cep);
                 setEstado(data.uf);
                 setErro("");
             }
@@ -203,6 +202,7 @@ return(
                         name="cidade"
                         className="form-control"
                         required
+                        value={cidade}
                         onChange={handleState}
                         />
                         </div>
@@ -213,6 +213,7 @@ return(
                         name="estado"
                         className="form-control"
                         required
+                        value={estado}
                         onChange={handleState}
                         />
                         </div>
@@ -261,6 +262,7 @@ return(
                         <label htmlFor="cep" className='form-label'>CEP</label>
                         <input type="text" 
                         name="cep"
+                        onBlur={findCep}
                         className="form-control"
                         required
                         onChange={handleState}
