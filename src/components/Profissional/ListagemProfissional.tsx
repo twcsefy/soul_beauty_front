@@ -98,8 +98,9 @@ const ListagemProfissional = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:8000/api/profissional/retornarTodos/');
+                 const response = await axios.get('http://localhost:8000/api/profissional/retornarTodos');
                 setProfissionals(response.data.data);
+                console.log(response)
 
             } catch (error) {
                 setError("Ocorreu um erro");

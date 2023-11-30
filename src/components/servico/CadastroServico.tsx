@@ -11,6 +11,11 @@ const CadastroServico = () => {
     const [descricao, setDescricao] = useState<string>("");
     const [duracao, setDuracao] = useState<string>("");
     const [preco, setPreco] = useState<string>("");
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [descricaoErro, setDescricaoErro] = useState<string>("");
+    const [duracaoErro, setDuracaoErro] = useState<string>("");
+    const [precoErro, setPrecoErro] = useState<string>("");
+
 
     const cadastroServico = (e: FormEvent) => {
         e.preventDefault();
@@ -30,7 +35,20 @@ const CadastroServico = () => {
                 "Content-Type": "application/json"
             }
         }).then(function(response){
-            console.log(response.data)
+            if(response.data.sucess === false){
+                if('nome' in response.data.error){
+                    setNomeErro(response.data.error.nome[0])
+                }
+                if('descricao' in response.data.error){
+                    setDescricaoErro(response.data.error.descricao[0])
+                }
+                if('duracao' in response.data.error){
+                    setDuracaoErro(response.data.error.duracao[0])
+                }
+                if('preco' in response.data.error){
+                    setPrecoErro(response.data.error.preco[0])
+                }
+            }
           window.location.href = "/listagemServico";
         }).catch(function(error){
             console.log(error);
