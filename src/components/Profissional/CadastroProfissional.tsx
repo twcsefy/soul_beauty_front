@@ -127,8 +127,8 @@ const CadastroProfissional = () => {
             setPasswordErro(response.data.error.password[0])
           }  
           }
-            console.log(response.data)
-          window.location.href = "/listagemProfissional";
+          else {console.log("error")
+          window.location.href = "/listagemProfissional";}
         }).catch(function(error){
             console.log(error);
         });

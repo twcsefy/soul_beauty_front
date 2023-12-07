@@ -2,11 +2,12 @@
     height: 200px;
     display: flex;
     align-items: center;
-    background-color: purple;
-    color: pink;
+    justify-content: center;
+    background-color: #c88db0;
+    color: #fff
 }
 
 .footer span {
     font-weight: bold;
-    color: pink;
+    color: #fff;
 }

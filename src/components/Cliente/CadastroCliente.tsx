@@ -143,7 +143,7 @@ const CadastroCliente = () => {
             setPasswordErro(response.data.error.password[0])
           }  
           }
-        //  window.location.href = "/listagemCliente";
+          window.location.href = "/listagemCliente";
         }).catch(function(error){
             console.log(error);
         });
